@@ -1,3 +1,122 @@
 [
-  {"question": "hihi cả nhà tự tạo testset bằng cơm nhé", "ground_truth": "Không kịp tạo luôn"},
+  {
+    "question": "Mẫu tờ khai thuế giá trị gia tăng nào được đề cập trong đoạn văn?",
+    "ground_truth": "Mẫu 01/GTGT"
+  },
+  {
+    "question": "Tiêu đề của đoạn văn là gì?",
+    "ground_truth": "Thông Tin Chung"
+  },
+  {
+    "question": "Tên người nộp thuế là gì?",
+    "ground_truth": "CÔNG TY CỔ PHẦN DHA SURFACES."
+  },
+  {
+    "question": "Mã số thuế của đơn vị nộp thuế là bao nhiêu?",
+    "ground_truth": "0106769437."
+  },
+  {
+    "question": "Lần kê khai đầu tiên là lần nào?",
+    "ground_truth": "Lần đầu, bổ sung lần thứ 1."
+  },
+  {
+    "question": "Tên hoạt động sản xuất kinh doanh là gì?",
+    "ground_truth": "Hoạt động sản xuất kinh doanh thông thường."
+  },
+  {
+    "question": "Chương 1 trong tài liệu đề cập đến nội dung gì?",
+    "ground_truth": "Hàng Hóa, Dịch Vụ Mua Vào Trong Kỳ"
+  },
+  {
+    "question": "Giá trị hàng hóa, dịch vụ mua vào là bao nhiêu?",
+    "ground_truth": "2.405.743.241 đồng."
+  },
+  {
+    "question": "Thuế giá trị gia tăng của hàng hóa, dịch vụ mua vào là bao nhiêu?",
+    "ground_truth": "215.163.767 đồng."
+  },
+  {
+    "question": "Số thuế giá trị gia tăng của hàng hóa, dịch vụ mua vào được khấu trừ kỳ này là bao nhiêu?",
+    "ground_truth": "215.163.767 đồng"
+  },
+  {
+    "question": "Số thuế GTGT còn được khấu trừ kỳ trước chuyển sang là bao nhiêu?",
+    "ground_truth": "77.377.803 đồng"
+  },
+  {
+    "question": "Chương 2 của tài liệu đề cập đến chủ đề gì?",
+    "ground_truth": "Hàng Hóa, Dịch Vụ Bán Ra Trong Kỳ"
+  },
+  {
+    "question": "Hàng hóa không chịu thuế giá trị gia tăng có giá trị là bao nhiêu?",
+    "ground_truth": "0 đồng."
+  },
+  {
+    "question": "Hàng hóa, dịch vụ nào không chịu thuế GTGT?",
+    "ground_truth": "Hàng hóa, dịch vụ bán ra không chịu thuế giá trị gia tăng."
+  },
+  {
+    "question": "Tổng giá trị hàng hóa, dịch vụ bán ra chịu thuế GTGT là bao nhiêu?",
+    "ground_truth": "3.703.688.610 đồng"
+  },
+  {
+    "question": "Thuế GTGT của hàng hóa, dịch vụ bán ra chịu thuế suất 10% là bao nhiêu?",
+    "ground_truth": "344.675.400 đồng"
+  },
+  {
+    "question": "Nghị định số bao nhiêu bảo vệ dữ liệu cá nhân?",
+    "ground_truth": "13/2023/NĐ-CP"
+  },
+  {
+    "question": "Ngày phát hành của nghị định là ngày nào?",
+    "ground_truth": "17 tháng 4 năm 2023"
+  },
+  {
+    "question": "Dữ liệu cá nhân được xử lý theo quy định của pháp luật như thế nào?",
+    "ground_truth": "Dữ liệu cá nhân được xử lý theo quy định của pháp luật."
+  },
+  {
+    "question": "Ai phải chịu trách nhiệm tuân thủ các nguyên tắc xử lý dữ liệu cá nhân?",
+    "ground_truth": "Bên Kiểm soát dữ liệu, Bên Kiểm soát và xử lý dữ liệu cá nhân phải chịu trách nhiệm tuân thủ các nguyên tắc xử lý dữ liệu."
+  },
+  {
+    "question": "Chương II của tài liệu đề cập đến vấn đề gì?",
+    "ground_truth": "Hoạt Động Bảo Vệ Dữ Liệu Cá Nhân"
+  },
+  {
+    "question": "Sự đồng ý của chủ thể dữ liệu phải được thể hiện như thế nào?",
+    "ground_truth": "Sự đồng ý của chủ thể dữ liệu phải được thể hiện rõ ràng, cụ thể bằng văn bản, giọng nói, đánh dấu vào ô đồng ý, cú pháp đồng ý qua tin nhắn, chọn các thiết lập kỹ thuật đồng ý hoặc qua một hành động khác thể hiện được điều này."
+  },
+  {
+    "question": "Sự im lặng của chủ thể dữ liệu có được coi là sự đồng ý không?",
+    "ground_truth": "Sự im lặng hoặc không phản hồi của chủ thể dữ liệu không được coi là sự đồng ý."
+  },
+  {
+    "question": "Trong trường hợp nào chủ thể dữ liệu có thể yêu cầu xóa dữ liệu cá nhân?",
+    "ground_truth": "Chủ thể dữ liệu được yêu cầu Bên Kiểm soát dữ liệu cá nhân, Bên Kiểm soát và xử lý dữ liệu cá nhân xóa dữ liệu cá nhân của mình trong các trường hợp sau: a) Nhận thấy không còn cần thiết cho mục đích thu thập đã đồng ý và chấp nhận các thiệt hại có thể xảy ra khi yêu cầu xóa dữ liệu; b) Rút lại sự đồng ý; c) Phản đối việc xử lý dữ liệu và Bên Kiểm soát dữ liệu cá nhân, Bên Kiểm soát và xử lý dữ liệu cá nhân không có lý do chính đáng để tiếp tục xử lý; d) Dữ liệu cá nhân được xử lý không đúng với mục đích đã đồng ý hoặc việc xử lý dữ liệu cá nhân là vi phạm quy định của pháp luật; đ) Dữ liệu cá nhân phải xóa theo quy định của pháp luật."
+  },
+  {
+    "question": "Khi nào việc xóa dữ liệu cá nhân không được áp dụng?",
+    "ground_truth": "Việc xóa dữ liệu sẽ không áp dụng khi có đề nghị của chủ thể dữ liệu trong các trường hợp: a) Pháp luật quy định không cho phép xóa dữ liệu; b) Dữ liệu cá nhân được xử lý bởi cơ quan nhà nước có thẩm quyền với mục đích phục vụ hoạt động của cơ quan nhà nước theo quy định của pháp luật; c) Dữ liệu cá nhân đã được công khai theo quy định của pháp luật; d) Dữ liệu cá nhân được xử lý nhằm phục vụ yêu cầu pháp lý, nghiên cứu khoa học, thống kê theo quy định của pháp luật; đ) Trong trường hợp tình trạng khẩn cấp về quốc phòng, an ninh quốc gia, trật tự an toàn xã hội, thảm họa lớn, dịch bệnh nguy hiểm; khi có nguy cơ đe dọa an ninh, quốc phòng nhưng chưa đến mức ban bố tình trạng khẩn cấp; phòng, chống bạo loạn, khủng bố, phòng, chống tội phạm và vi phạm pháp luật; e) Ứng phó với tình huống khẩn."
+  },
+  {
+    "question": "Khi nào cần có sự đồng ý của cha, mẹ hoặc người giám hộ để xử lý dữ liệu cá nhân của trẻ em?",
+    "ground_truth": "Việc xử lý dữ liệu cá nhân của trẻ em phải có sự đồng ý của trẻ em trong trường hợp trẻ em từ đủ 7 tuổi trở lên và có sự đồng ý của cha, mẹ hoặc người giám hộ theo quy định."
+  },
+  {
+    "question": "Trong trường hợp nào dữ liệu cá nhân của trẻ em phải được ngừng xử lý và xóa?",
+    "ground_truth": "Ngừng xử lý dữ liệu cá nhân của trẻ em, xóa không thể khôi phục hoặc hủy dữ liệu cá nhân của trẻ em trong trường hợp: a) Xử lý dữ liệu không đúng mục đích hoặc đã hoàn thành mục đích xử lý dữ liệu cá nhân được chủ thể dữ liệu đồng ý."
+  },
+  {
+    "question": "Hồ sơ đánh giá tác động xử lý dữ liệu cá nhân bao gồm những nội dung gì?",
+    "ground_truth": "a) Thông tin và chi tiết liên lạc của Bên Kiểm soát dữ liệu cá nhân, Bên Kiểm soát và xử lý dữ liệu cá nhân; b) Họ tên, chi tiết liên lạc của tổ chức được phân công thực hiện nhiệm vụ bảo vệ dữ liệu cá nhân và nhân viên bảo vệ dữ liệu cá nhân; c) Mục đích xử lý dữ liệu cá nhân; d) Các loại dữ liệu cá nhân được xử lý; đ) Tổ chức, cá nhân nhận dữ liệu cá nhân, bao gồm tổ chức, cá nhân ngoài lãnh thổ Việt Nam; e) Trường hợp chuyển dữ liệu cá nhân ra nước ngoài; g) Thời gian xử lý dữ liệu cá nhân; thời gian dự kiến để xóa, hủy dữ liệu cá nhân (nếu có); h) Mô tả về các biện pháp bảo vệ dữ liệu cá nhân được áp dụng; i) Đánh giá mức độ ảnh hưởng của việc xử lý dữ liệu cá nhân; hậu quả, thiệt hại không mong muốn có khả năng xảy ra, các biện pháp giảm thiểu hoặc loại bỏ nguy cơ, tác hại đó."
+  },
+  {
+    "question": "Ai là bên phải lập và lưu giữ Hồ sơ đánh giá tác động xử lý dữ liệu cá nhân khi thực hiện hợp đồng với Bên Kiểm soát dữ liệu cá nhân?",
+    "ground_truth": "Bên Xử lý dữ liệu cá nhân"
+  },
+  {
+    "question": "Biện pháp bảo vệ dữ liệu cá nhân được áp dụng khi nào?",
+    "ground_truth": "ngay từ khi bắt đầu và trong suốt quá trình xử lý dữ liệu cá nhân."
+  }
 ]

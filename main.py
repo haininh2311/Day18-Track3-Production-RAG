@@ -20,11 +20,11 @@ def main():
 
     os.makedirs("reports", exist_ok=True)
 
-    # Step 1: Basic Baseline
-    print("\n📌 STEP 1: Running Basic RAG Baseline...")
-    print("-" * 40)
-    from naive_baseline import main as run_baseline
-    run_baseline()
+    # # Step 1: Basic Baseline
+    # print("\n📌 STEP 1: Running Basic RAG Baseline...")
+    # print("-" * 40)
+    # from naive_baseline import main as run_baseline
+    # run_baseline()
 
     # Step 2: Production Pipeline
     print("\n📌 STEP 2: Running Production Pipeline...")

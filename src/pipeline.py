@@ -18,7 +18,7 @@ def build_pipeline():
     print("PRODUCTION RAG PIPELINE")
     print("=" * 60)
 
-    # Step 1: Load & Chunk (M1)
+    # Step 1: Load & Chunk (M1) - Rất nhanh, cần để lấy chunks cho BM25
     print("\n[1/3] Chunking documents...")
     docs = load_documents()
     all_chunks = []
@@ -28,26 +28,30 @@ def build_pipeline():
             all_chunks.append({"text": child.text, "metadata": {**child.metadata, "parent_id": child.parent_id}})
     print(f"  {len(all_chunks)} chunks from {len(docs)} documents")
 
-    # Step 2: Enrichment (M5)
-    print("\n[2/4] Enriching chunks (M5)...")
-    enriched = enrich_chunks(all_chunks, methods=["contextual", "hyqa", "metadata"])
-    if enriched:
-        # Use enriched text for indexing
-        all_chunks = [{"text": e.enriched_text, "metadata": e.auto_metadata} for e in enriched]
-        print(f"  Enriched {len(enriched)} chunks")
-    else:
-        print("  ⚠️  M5 not implemented — using raw chunks (fallback)")
+    # Step 2: Enrichment (M5) - Tốn phí OpenAI, có thể comment nếu đã chạy rồi
+    # print("\n[2/4] Enriching chunks (M5)... [ĐÃ BẬT ĐA LUỒNG]")
+    # enriched = enrich_chunks(all_chunks, methods=["contextual", "hyqa", "metadata"])
+    # if enriched:
+    #     all_chunks = [{"text": e.enriched_text, "metadata": e.auto_metadata} for e in enriched]
+    #     print(f"  Enriched {len(enriched)} chunks")
 
     # Step 3: Index (M2)
-    print("\n[3/4] Indexing (BM25 + Dense)...")
+    print("\n[3/4] Initializing Search...")
     search = HybridSearch()
-    search.index(all_chunks)
+    # Nạp lại BM25 (vì BM25 lưu trong RAM, sẽ mất khi tắt script)
+    print("  Indexing BM25 (In-memory)...")
+    search.bm25.index(all_chunks)
+    
+    # Bỏ qua việc index vào Qdrant nếu bạn chắc chắn dữ liệu đã có sẵn trong Qdrant
+    # print("  Indexing Dense (Qdrant)...")
+    # search.dense.index(all_chunks)
 
     # Step 4: Reranker (M3)
     print("\n[4/4] Loading reranker...")
     reranker = CrossEncoderReranker()
 
     return search, reranker
+
 
 
 def run_query(query: str, search: HybridSearch, reranker: CrossEncoderReranker) -> tuple[str, list[str]]:
@@ -57,17 +61,41 @@ def run_query(query: str, search: HybridSearch, reranker: CrossEncoderReranker) 
     reranked = reranker.rerank(query, docs, top_k=RERANK_TOP_K)
     contexts = [r.text for r in reranked] if reranked else [r.text for r in results[:3]]
 
-    # TODO (nhóm): Replace with LLM generation for better scores
-    # from openai import OpenAI
-    # client = OpenAI()
-    # context_str = "\n\n".join(contexts)
-    # resp = client.chat.completions.create(model="gpt-4o-mini", messages=[
-    #     {"role": "system", "content": "Trả lời CHỈ dựa trên context. Nếu không có → nói 'Không tìm thấy.'"},
-    #     {"role": "user", "content": f"Context:\n{context_str}\n\nCâu hỏi: {query}"},
-    # ])
-    # answer = resp.choices[0].message.content
-    answer = contexts[0] if contexts else "Không tìm thấy thông tin."
+    # LLM generation — dùng OpenAI gpt-4o-mini để sinh câu trả lời từ context
+    # Điều này giúp tăng điểm Faithfulness và Answer Relevancy đáng kể
+    try:
+        from openai import OpenAI
+        from config import OPENAI_API_KEY
+        client = OpenAI(api_key=OPENAI_API_KEY)
+        context_str = "\n\n---\n\n".join(contexts)
+        resp = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "Bạn là trợ lý AI chuyên trả lời câu hỏi dựa trên tài liệu nội bộ. "
+                        "Quy tắc quan trọng:\n"
+                        "1. CHỈ trả lời dựa trên thông tin có trong CONTEXT bên dưới.\n"
+                        "2. Nếu context không có thông tin → trả lời: 'Không tìm thấy thông tin liên quan trong tài liệu.'\n"
+                        "3. Câu trả lời ngắn gọn, súc tích, đúng trọng tâm.\n"
+                        "4. Không suy đoán hoặc thêm thông tin ngoài context."
+                    ),
+                },
+                {
+                    "role": "user",
+                    "content": f"CONTEXT:\n{context_str}\n\nCÂU HỎI: {query}",
+                },
+            ],
+            temperature=0.1,  # thấp để hạn chế hallucination
+            max_tokens=512,
+        )
+        answer = resp.choices[0].message.content.strip()
+    except Exception:
+        # Fallback: dùng context đầu tiên nếu OpenAI lỗi
+        answer = contexts[0] if contexts else "Không tìm thấy thông tin."
     return answer, contexts
+
 
 
 def evaluate_pipeline(search: HybridSearch, reranker: CrossEncoderReranker):
@@ -92,7 +120,9 @@ def evaluate_pipeline(search: HybridSearch, reranker: CrossEncoderReranker):
     print("=" * 60)
     for m in ["faithfulness", "answer_relevancy", "context_precision", "context_recall"]:
         s = results.get(m, 0)
-        print(f"  {'✓' if s >= 0.75 else '✗'} {m}: {s:.4f}")
+        status = "[OK]" if s >= 0.75 else "[FAIL]"
+        print(f"  {status} {m}: {s:.4f}")
+
 
     failures = failure_analysis(results.get("per_question", []))
     save_report(results, failures)
